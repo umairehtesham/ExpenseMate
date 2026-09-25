@@ -1,0 +1,15 @@
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Services\bin\Debug\net10.0\ExpenseMate.Services.deps.json
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Services\bin\Debug\net10.0\ExpenseMate.Services.dll
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Services\bin\Debug\net10.0\ExpenseMate.Services.pdb
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Services\bin\Debug\net10.0\ExpenseMate.Domain.dll
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Services\bin\Debug\net10.0\ExpenseMate.Domain.pdb
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Services\obj\Debug\net10.0\ExpenseMate.Services.csproj.AssemblyReference.cache
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Services\obj\Debug\net10.0\ExpenseMate.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Services\obj\Debug\net10.0\ExpenseMate.Services.AssemblyInfoInputs.cache
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Services\obj\Debug\net10.0\ExpenseMate.Services.AssemblyInfo.cs
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Services\obj\Debug\net10.0\ExpenseMate.Services.csproj.CoreCompileInputs.cache
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Services\obj\Debug\net10.0\ExpenseM.D8965C06.Up2Date
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Services\obj\Debug\net10.0\ExpenseMate.Services.dll
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Services\obj\Debug\net10.0\refint\ExpenseMate.Services.dll
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Services\obj\Debug\net10.0\ExpenseMate.Services.pdb
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Services\obj\Debug\net10.0\ref\ExpenseMate.Services.dll

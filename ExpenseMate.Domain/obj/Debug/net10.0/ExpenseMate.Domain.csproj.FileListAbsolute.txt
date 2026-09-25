@@ -1,0 +1,11 @@
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Domain\obj\Debug\net10.0\ExpenseMate.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Domain\obj\Debug\net10.0\ExpenseMate.Domain.AssemblyInfoInputs.cache
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Domain\obj\Debug\net10.0\ExpenseMate.Domain.AssemblyInfo.cs
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Domain\obj\Debug\net10.0\ExpenseMate.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Domain\bin\Debug\net10.0\ExpenseMate.Domain.deps.json
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Domain\bin\Debug\net10.0\ExpenseMate.Domain.dll
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Domain\bin\Debug\net10.0\ExpenseMate.Domain.pdb
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Domain\obj\Debug\net10.0\ExpenseMate.Domain.dll
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Domain\obj\Debug\net10.0\refint\ExpenseMate.Domain.dll
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Domain\obj\Debug\net10.0\ExpenseMate.Domain.pdb
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Domain\obj\Debug\net10.0\ref\ExpenseMate.Domain.dll

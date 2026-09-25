@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ExpenseMate.Api/ExpenseMate.Api.csproj" />
+  <Project Path="ExpenseMate.Database/ExpenseMate.Database.csproj" />
+  <Project Path="ExpenseMate.Domain/ExpenseMate.Domain.csproj" />
+  <Project Path="ExpenseMate.Services/ExpenseMate.Services.csproj" />
+</Solution>

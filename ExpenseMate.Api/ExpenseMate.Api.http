@@ -1,0 +1,6 @@
+@ExpenseMate.Api_HostAddress = http://localhost:5001
+
+GET {{ExpenseMate.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
