@@ -172,3 +172,4 @@ C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Api\bin\Debug\net10.0\ru\Micros
 C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Api\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Api\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Api\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Api\obj\Debug\net10.0\ExpenseMate.Api.sourcelink.json

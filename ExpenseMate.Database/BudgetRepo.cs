@@ -21,17 +21,30 @@ public class BudgetRepo : IBudgetRepo
     }
 
     
-    public async Task AddBudgetAsync(Budget Budget)
+    public async Task<Budget> AddOrUpdateBudgetAsync(Budget budget)
     {
-        await _context.Budgets.AddAsync(Budget);
-        await _context.SaveChangesAsync();
-    }
+        // 1. Check if a budget record already exists for this month
+        var existingBudget = await _context.Budgets
+            .FirstOrDefaultAsync(b => b.BudgetMonth.Trim().ToLower() == budget.BudgetMonth.Trim().ToLower());
 
-    public async Task UpdateBudgetAsync(Budget Budget)
-    {
-        _context.Budgets.Update(Budget); 
-        await _context.SaveChangesAsync();
-    } 
+        if (existingBudget != null)
+        {
+            // 2. UPDATE existing row
+            existingBudget.BudgetAmount = budget.BudgetAmount;
+            existingBudget.AlertPercent = budget.AlertPercent;
+
+            _context.Budgets.Update(existingBudget);
+            await _context.SaveChangesAsync();
+            return existingBudget;
+        }
+        else
+        {
+            // 3. INSERT new row
+            await _context.Budgets.AddAsync(budget);
+            await _context.SaveChangesAsync();
+            return budget;
+        }
+    }
 
     public async Task DeleteBudgetAsync(int id)
     {

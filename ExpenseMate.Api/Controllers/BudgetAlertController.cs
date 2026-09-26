@@ -1,23 +1,26 @@
-using ExpenseMate.Services;
 using Microsoft.AspNetCore.Mvc;
+using ExpenseMate.Services;
+using System.Threading.Tasks;
 
-namespace ExpenseMate.Api.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class BudgetAlertsController : ControllerBase
+namespace ExpenseMate.Api.Controllers
 {
-    private readonly IBudgetAlertService _budgetAlertService;
-
-    public BudgetAlertsController(IBudgetAlertService budgetAlertService)
+    [ApiController]
+    [Route("api/[controller]")] // Maps to "api/budgetalert"
+    public class BudgetAlertController : ControllerBase
     {
-        _budgetAlertService = budgetAlertService;
-    }
+        private readonly IBudgetAlertService _budgetAlertService;
 
-    [HttpGet("{month}")]
-    public async Task<IActionResult> CheckAlert(string month)
-    {
-        var result = await _budgetAlertService.CheckBudgetAlertAsync(month);
-        return Ok(result);
+        public BudgetAlertController(IBudgetAlertService budgetAlertService)
+        {
+            _budgetAlertService = budgetAlertService;
+        }
+
+        // Maps to GET api/budgetalert/{month}
+        [HttpGet("{month}")]
+        public async Task<IActionResult> CheckAlert(string month)
+        {
+            var alert = await _budgetAlertService.CheckBudgetAlertAsync(month);
+            return Ok(alert);
+        }
     }
 }

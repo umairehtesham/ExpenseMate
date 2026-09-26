@@ -1,69 +1,37 @@
-namespace ExpenseMate.Services;
 using ExpenseMate.Domain;
+using System;
+using System.Threading.Tasks;
 
-public class BudgetService : IBudgetService
+namespace ExpenseMate.Services
 {
-    private readonly IBudgetRepo _budgetRepo;
-
-    public BudgetService(IBudgetRepo budgetRepo)
+    public class BudgetService : IBudgetService
     {
-        _budgetRepo=budgetRepo;
-    }
+        private readonly IBudgetRepo _budgetRepo;
 
-    public async Task<Budget?> GetBudgetByMonthAsync(string month)
-    {
-        if (string.IsNullOrWhiteSpace(month))
+        public BudgetService(IBudgetRepo budgetRepo)
         {
-            throw new ArgumentException("Month not entered");
+            _budgetRepo = budgetRepo;
         }
 
-        return await _budgetRepo.GetByMonth(month);
-    }
+        public async Task<Budget?> GetBudgetByMonthAsync(string month)
+        {
+            if (string.IsNullOrWhiteSpace(month))
+            {
+                throw new ArgumentException("Month not entered");
+            }
 
-    public async Task SetBudgetAsync(Budget budget)
-    {
-        if (budget.BudgetAmount <= 0)
-        {
-            throw new ArgumentException("Budget amount cannot be negative or zero");
+            return await _budgetRepo.GetByMonth(month);
         }
-        if (budget.AlertPercent <= 0)
-        {
-            throw new ArgumentException("Budget Alert Percent cannot be negative or zero");   
-        }
-        if (string.IsNullOrWhiteSpace(budget.BudgetMonth))
-        {
-             throw new ArgumentException("Budget month cannot be  null");   
-        }
-        await _budgetRepo.AddBudgetAsync(budget);
-    }
 
-    public async Task UpdateBudgetAsync(Budget budget)
-    {
-        if (budget.BudgetId <= 0)
+        public async Task<Budget> SaveBudgetAsync(Budget budget)
         {
-            throw new ArgumentException("Budget Id not valid");
-        }
-        if (budget.BudgetAmount <= 0)
-        {
-            throw new ArgumentException("Budget amount cannot be negative or zero");
-        }
-        if (budget.AlertPercent <= 0)
-        {
-            throw new ArgumentException("Budget Alert Percent cannot be negative or zero");   
-        }
-        if (string.IsNullOrWhiteSpace(budget.BudgetMonth))
-        {
-             throw new ArgumentException("Budget month cannot be  null");   
-        }
-        await _budgetRepo.UpdateBudgetAsync(budget);
-    }
-    public async Task DeleteBudgetAsync(int id)
-    {
-        if (id <= 0)
-        {
-            throw new ArgumentException("Budget Id not valid");
-        }
-        await _budgetRepo.DeleteBudgetAsync(id);
-    }
+            if (budget == null || string.IsNullOrWhiteSpace(budget.BudgetMonth))
+            {
+                throw new ArgumentException("Budget month is required.");
+            }
 
+            // Calls the repo where _context actually lives
+            return await _budgetRepo.AddOrUpdateBudgetAsync(budget);
+        }
+    }
 }

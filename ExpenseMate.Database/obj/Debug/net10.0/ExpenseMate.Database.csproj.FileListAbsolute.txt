@@ -13,3 +13,4 @@ C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Database\obj\Debug\net10.0\Expe
 C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Database\obj\Debug\net10.0\refint\ExpenseMate.Database.dll
 C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Database\obj\Debug\net10.0\ExpenseMate.Database.pdb
 C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Database\obj\Debug\net10.0\ref\ExpenseMate.Database.dll
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Database\obj\Debug\net10.0\ExpenseMate.Database.sourcelink.json

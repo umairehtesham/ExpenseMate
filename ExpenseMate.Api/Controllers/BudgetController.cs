@@ -27,48 +27,16 @@ public class BudgetController : ControllerBase
         return Ok(budget);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Create([FromBody] Budget budget)
+  [HttpPost]
+public async Task<IActionResult> CreateOrUpdateBudget([FromBody] Budget budget)
+{
+    if (budget == null || string.IsNullOrWhiteSpace(budget.BudgetMonth))
     {
-        try
-        {
-            await _budgetService.SetBudgetAsync(budget);
-            return CreatedAtAction(nameof(GetByMonth), new { month = budget.BudgetMonth }, budget);
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        return BadRequest("Invalid budget payload.");
     }
 
-    [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(int id, [FromBody] Budget budget)
-    {
-        if (id != budget.BudgetId)
-            return BadRequest("Route ID does not match entity ID.");
+    var result = await _budgetService.SaveBudgetAsync(budget);
+    return Ok(result);
+}
 
-        try
-        {
-            await _budgetService.UpdateBudgetAsync(budget);
-            return NoContent();
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
-
-    [HttpDelete("{id:int}")]
-    public async Task<IActionResult> Delete(int id)
-    {
-        try
-        {
-            await _budgetService.DeleteBudgetAsync(id);
-            return NoContent();
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
 }

@@ -1,0 +1,13 @@
+<nav class="navbar">
+  <a routerLink="/" class="logo">⚡ ExpenseMate</a>
+  <div class="nav-links">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
+    <a routerLink="/income" routerLinkActive="active">Income</a>
+    <a routerLink="/expenses" routerLinkActive="active">Expenses</a>
+    <a routerLink="/budgets" routerLinkActive="active">Budgets</a>
+  </div>
+</nav>
+
+<main class="main-container">
+  <router-outlet></router-outlet>
+</main>
