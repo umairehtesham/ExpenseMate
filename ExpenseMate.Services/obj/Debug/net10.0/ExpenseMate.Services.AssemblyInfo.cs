@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ExpenseMate.Services")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c17fe94c109fc8979712ffab81957a731756133")]
 [assembly: System.Reflection.AssemblyProductAttribute("ExpenseMate.Services")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ExpenseMate.Services")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

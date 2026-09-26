@@ -9,3 +9,4 @@ C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Domain\obj\Debug\net10.0\Expens
 C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Domain\obj\Debug\net10.0\refint\ExpenseMate.Domain.dll
 C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Domain\obj\Debug\net10.0\ExpenseMate.Domain.pdb
 C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Domain\obj\Debug\net10.0\ref\ExpenseMate.Domain.dll
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Domain\obj\Debug\net10.0\ExpenseMate.Domain.sourcelink.json

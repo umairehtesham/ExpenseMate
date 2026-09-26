@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ExpenseMate.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c17fe94c109fc8979712ffab81957a731756133")]
 [assembly: System.Reflection.AssemblyProductAttribute("ExpenseMate.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ExpenseMate.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

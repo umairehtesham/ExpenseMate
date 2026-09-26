@@ -46,11 +46,20 @@ public class ExpenseRepo : IExpenseRepo
         }
     }
 
-    public async Task<double> GetTotalSpentByMonthAsync(string month)
-    {
-        return await _context.Expenses
-        .Where(e => e.CreatedAt.ToString("yyyy-MM") == month)
-        .SumAsync(e => e.ExpenseAmount);
-    }
+   public async Task<double> GetTotalSpentByMonthAsync(string month)
+{
+    if (string.IsNullOrWhiteSpace(month)) return 0;
+
+    // Fetch expenses into memory
+    var expenses = await _context.Expenses.ToListAsync();
+
+    // Change 'Date' to match your Expense.cs property (e.g., e.Date, e.DateTime, or e.CreatedAt)
+    double totalSpent = expenses
+        .Where(e => e.CreatedAt.ToString("MMMM").Equals(month.Trim(), StringComparison.OrdinalIgnoreCase) ||
+                    e.CreatedAt.ToString("MMM").Equals(month.Trim(), StringComparison.OrdinalIgnoreCase))
+        .Sum(e => (double)Math.Abs(e.ExpenseAmount));
+
+    return totalSpent;
+}
 }
     
