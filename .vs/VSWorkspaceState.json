@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\ExpenseMate.Api",
+    "\\ExpenseMate.Database",
+    "\\ExpenseMate.Domain",
+    "\\ExpenseMate.Services"
+  ],
+  "SelectedNode": "\\ExpenseMate.Services",
+  "PreviewInSolutionExplorer": false
+}

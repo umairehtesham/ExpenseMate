@@ -8,9 +8,9 @@ C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Database\obj\Debug\net10.0\Expe
 C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Database\obj\Debug\net10.0\ExpenseMate.Database.AssemblyInfoInputs.cache
 C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Database\obj\Debug\net10.0\ExpenseMate.Database.AssemblyInfo.cs
 C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Database\obj\Debug\net10.0\ExpenseMate.Database.csproj.CoreCompileInputs.cache
+C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Database\obj\Debug\net10.0\ExpenseMate.Database.sourcelink.json
 C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Database\obj\Debug\net10.0\ExpenseM.16D706FC.Up2Date
 C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Database\obj\Debug\net10.0\ExpenseMate.Database.dll
 C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Database\obj\Debug\net10.0\refint\ExpenseMate.Database.dll
 C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Database\obj\Debug\net10.0\ExpenseMate.Database.pdb
 C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Database\obj\Debug\net10.0\ref\ExpenseMate.Database.dll
-C:\Users\Umair  ehtesham\ExpenseMate\ExpenseMate.Database\obj\Debug\net10.0\ExpenseMate.Database.sourcelink.json
