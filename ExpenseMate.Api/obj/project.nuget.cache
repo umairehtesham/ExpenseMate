@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iuCQZOIhHfo=",
+  "dgSpecHash": "Kr0sGm0ENTU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Umair  ehtesham\\ExpenseMate\\ExpenseMate.Api\\ExpenseMate.Api.csproj",
+  "projectFilePath": "C:\\Users\\Umair  ehtesham\\ExpenseMate\\ExpenseMAte.Api\\ExpenseMate.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Umair  ehtesham\\.nuget\\packages\\azure.core\\1.50.0\\azure.core.1.50.0.nupkg.sha512",
     "C:\\Users\\Umair  ehtesham\\.nuget\\packages\\azure.identity\\1.17.1\\azure.identity.1.17.1.nupkg.sha512",

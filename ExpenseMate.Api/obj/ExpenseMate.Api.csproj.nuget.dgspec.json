@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Umair  ehtesham\\ExpenseMate\\ExpenseMate.Api\\ExpenseMate.Api.csproj": {}
+    "C:\\Users\\Umair  ehtesham\\ExpenseMate\\ExpenseMAte.Api\\ExpenseMate.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Umair  ehtesham\\ExpenseMate\\ExpenseMate.Api\\ExpenseMate.Api.csproj": {
+    "C:\\Users\\Umair  ehtesham\\ExpenseMate\\ExpenseMAte.Api\\ExpenseMate.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Umair  ehtesham\\ExpenseMate\\ExpenseMate.Api\\ExpenseMate.Api.csproj",
+        "projectUniqueName": "C:\\Users\\Umair  ehtesham\\ExpenseMate\\ExpenseMAte.Api\\ExpenseMate.Api.csproj",
         "projectName": "ExpenseMate.Api",
-        "projectPath": "C:\\Users\\Umair  ehtesham\\ExpenseMate\\ExpenseMate.Api\\ExpenseMate.Api.csproj",
+        "projectPath": "C:\\Users\\Umair  ehtesham\\ExpenseMate\\ExpenseMAte.Api\\ExpenseMate.Api.csproj",
         "packagesPath": "C:\\Users\\Umair  ehtesham\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Umair  ehtesham\\ExpenseMate\\ExpenseMate.Api\\obj\\",
+        "outputPath": "C:\\Users\\Umair  ehtesham\\ExpenseMate\\ExpenseMAte.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

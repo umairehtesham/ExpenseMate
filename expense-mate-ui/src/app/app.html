@@ -1,13 +1,19 @@
-<nav class="navbar">
-  <a routerLink="/" class="logo">⚡ ExpenseMate</a>
-  <div class="nav-links">
-    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
+<header class="navbar-header">
+  <div class="logo">
+    <span class="logo-icon">⚡</span>
+    <span class="logo-text">ExpenseMate</span>
+  </div>
+
+  <nav class="nav-links">
+    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
     <a routerLink="/income" routerLinkActive="active">Income</a>
     <a routerLink="/expenses" routerLinkActive="active">Expenses</a>
     <a routerLink="/budgets" routerLinkActive="active">Budgets</a>
-  </div>
-</nav>
+    <a routerLink="/analytics" routerLinkActive="active">Analytics</a>
+    <a routerLink="/csv-import" routerLinkActive="active">Import CSV</a>
+  </nav>
+</header>
 
-<main class="main-container">
+<main class="content">
   <router-outlet></router-outlet>
 </main>

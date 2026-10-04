@@ -1,0 +1,349 @@
+<div class="analytics-container">
+
+  <!-- ================= HEADER ================= -->
+
+  <div class="header-actions">
+
+    <h2>
+      Analytics & Visualization
+    </h2>
+
+
+    <div class="year-filter">
+
+      <label for="year">
+        Year:
+      </label>
+
+
+      <select
+        id="year"
+        [ngModel]="selectedYear()"
+        (ngModelChange)="selectedYear.set($event); onYearChange()">
+
+        <option
+          *ngFor="let year of years"
+          [ngValue]="year">
+
+          {{ year }}
+
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ================= LOADING ================= -->
+
+  <div
+    *ngIf="isLoading()"
+    class="loading-spinner">
+
+    Loading analytics...
+
+  </div>
+
+
+
+  <!-- ================= ERROR ================= -->
+
+  <div
+    *ngIf="errorMessage() && !isLoading()"
+    class="error-box">
+
+    <p>
+      {{ errorMessage() }}
+    </p>
+
+
+    <button
+      type="button"
+      class="retry-btn"
+      (click)="loadAnalytics()">
+
+      Retry
+
+    </button>
+
+  </div>
+
+
+
+  <!-- ================= DASHBOARD ================= -->
+
+  <div
+    *ngIf="!isLoading() && data()"
+    class="analytics-content">
+
+
+    <!-- ================= KPI CARDS ================= -->
+
+    <div class="kpi-grid">
+
+
+      <!-- INCOME -->
+
+      <div class="kpi-card income">
+
+        <span>
+          Total Income
+        </span>
+
+
+        <h3>
+
+          $
+          {{ data()!.totalIncome | number:'1.2-2' }}
+
+        </h3>
+
+      </div>
+
+
+
+      <!-- EXPENSE -->
+
+      <div class="kpi-card expense">
+
+        <span>
+          Total Expense
+        </span>
+
+
+        <h3>
+
+          $
+          {{ data()!.totalExpense | number:'1.2-2' }}
+
+        </h3>
+
+      </div>
+
+
+
+      <!-- SAVINGS -->
+
+      <div
+        class="kpi-card savings"
+        [ngClass]="{
+          'positive': data()!.netSavings >= 0,
+          'negative': data()!.netSavings < 0
+        }">
+
+        <span>
+          Net Savings
+        </span>
+
+
+        <h3>
+
+          $
+          {{ data()!.netSavings | number:'1.2-2' }}
+
+        </h3>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ================= CHARTS ================= -->
+
+    <div class="charts-grid">
+
+
+      <!-- ================= MONTHLY CHART ================= -->
+
+      <div class="card chart-card">
+
+        <h3>
+          Monthly Income vs. Expense
+        </h3>
+
+
+        <div
+          class="bar-chart"
+          *ngIf="
+            data()!.monthlyOverview &&
+            data()!.monthlyOverview.length > 0
+          ">
+
+
+          <div
+            *ngFor="
+              let month of data()!.monthlyOverview
+            "
+            class="chart-column">
+
+
+            <div class="bar-group">
+
+
+              <!-- INCOME BAR -->
+
+              <div
+                class="bar income-bar"
+                [style.height.%]="
+                  getBarHeight(month.totalIncome)
+                "
+                [title]="
+                  'Income: $' + month.totalIncome
+                ">
+              </div>
+
+
+
+              <!-- EXPENSE BAR -->
+
+              <div
+                class="bar expense-bar"
+                [style.height.%]="
+                  getBarHeight(month.totalExpense)
+                "
+                [title]="
+                  'Expense: $' + month.totalExpense
+                ">
+              </div>
+
+            </div>
+
+
+            <!-- MONTH -->
+
+            <span class="month-label">
+
+              {{ month.monthName }}
+
+            </span>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- NO DATA -->
+
+        <div
+          *ngIf="
+            !data()!.monthlyOverview ||
+            data()!.monthlyOverview.length === 0
+          "
+          class="no-data">
+
+          No monthly data available.
+
+        </div>
+
+
+
+        <!-- LEGEND -->
+
+        <div class="legend">
+
+          <span class="legend-item">
+
+            <span
+              class="color-dot income-dot">
+            </span>
+
+            Income
+
+          </span>
+
+
+          <span class="legend-item">
+
+            <span
+              class="color-dot expense-dot">
+            </span>
+
+            Expense
+
+          </span>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ================= CATEGORY BREAKDOWN ================= -->
+
+      <div class="card category-card">
+
+        <h3>
+          Category Breakdown
+        </h3>
+
+
+        <!-- NO DATA -->
+
+        <div
+          *ngIf="
+            !data()!.categoryBreakdown ||
+            data()!.categoryBreakdown.length === 0
+          "
+          class="no-data">
+
+          No expense data recorded for
+          {{ selectedYear() }}.
+
+        </div>
+
+
+
+        <!-- CATEGORIES -->
+
+        <div
+          *ngFor="
+            let category of data()!.categoryBreakdown
+          "
+          class="category-row">
+
+
+          <div class="category-info">
+
+            <span>
+              {{ category.category }}
+            </span>
+
+
+            <span>
+
+              $
+              {{ category.totalAmount | number:'1.2-2' }}
+
+              ({{ category.percentage }}%)
+
+            </span>
+
+          </div>
+
+
+
+          <!-- PROGRESS BAR -->
+
+          <div class="progress-bar-bg">
+
+            <div
+              class="progress-bar-fill"
+              [style.width.%]="category.percentage">
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
