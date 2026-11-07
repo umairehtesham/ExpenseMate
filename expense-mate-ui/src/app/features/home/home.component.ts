@@ -63,7 +63,7 @@ import { RouterLink } from '@angular/router';
             <h3>Analytics & Visualization</h3>
           </div>
           <p class="card-description">
-            View income vs. expense visual charts and category percentage breakdowns[cite: 10].
+            View income vs. expense visual charts and category percentage breakdowns.
           </p>
           <a routerLink="/analytics" class="card-btn analytics-btn">
             Go to Analytics &rarr;
@@ -77,7 +77,7 @@ import { RouterLink } from '@angular/router';
             <h3>CSV Data Management</h3>
           </div>
           <p class="card-description">
-            Export transaction records to CSV or bulk-import transactions into the database[cite: 10].
+            Export transaction records to CSV or bulk-import transactions into the database.
           </p>
           <a routerLink="/csv" class="card-btn csv-btn">
             Import / Export CSV &rarr;

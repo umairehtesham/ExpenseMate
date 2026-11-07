@@ -2,9 +2,10 @@
 
 :root {
   --bg-main: #0b0f19;
-  --bg-card: #151c2c;
-  --bg-card-hover: #1e293b;
-  --border-color: #273549;
+  --bg-card: #1e1e1e; /* Dark charcoal card background */
+  --bg-card-hover: #262626;
+  --bg-input: #141414; /* Dark inset for text boxes */
+  --border-color: #333333; /* Neutral border color matching charcoal theme */
   --primary: #38bdf8;
   --primary-hover: #0284c7;
   --success: #10b981;
@@ -12,7 +13,7 @@
   --danger: #f43f5e;
   --warning: #f59e0b;
   --text-main: #f8fafc;
-  --text-muted: #94a3b8;
+  --text-muted: #a1a1aa; /* Crisp text contrast for labels */
   --radius: 12px;
 }
 
@@ -75,7 +76,7 @@ body {
   gap: 1rem;
 }
 
-/* Form Elements */
+/* Form Elements & Text Boxes */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -89,21 +90,30 @@ body {
   color: var(--text-muted);
 }
 
-.form-control {
-  background: #0f172a;
+.form-control,
+select.form-control,
+input.form-control {
+  background: var(--bg-input);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 0.75rem 1rem;
   color: var(--text-main);
   font-size: 0.95rem;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
   width: 100%;
+}
+
+/* Placeholder Text Visibility Fix */
+.form-control::placeholder {
+  color: #71717a;
+  opacity: 1;
 }
 
 .form-control:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+  background: #181818;
 }
 
 /* Buttons */
@@ -154,7 +164,7 @@ body {
 }
 
 .custom-table th {
-  background-color: #0f172a;
+  background-color: var(--bg-input);
   padding: 0.875rem 1rem;
   font-size: 0.8rem;
   text-transform: uppercase;

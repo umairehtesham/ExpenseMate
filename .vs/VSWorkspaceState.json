@@ -1,11 +1,17 @@
 {
   "ExpandedNodes": [
     "",
+    "\\expense-mate-ui",
+    "\\expense-mate-ui\\src",
+    "\\expense-mate-ui\\src\\app",
+    "\\expense-mate-ui\\src\\app\\features",
+    "\\expense-mate-ui\\src\\app\\features\\expense",
     "\\ExpenseMate.Api",
+    "\\ExpenseMate.Api\\Controllers",
     "\\ExpenseMate.Database",
     "\\ExpenseMate.Domain",
     "\\ExpenseMate.Services"
   ],
-  "SelectedNode": "\\ExpenseMate.Services",
+  "SelectedNode": "\\ExpenseMate.Services\\IncomeService.cs",
   "PreviewInSolutionExplorer": false
 }

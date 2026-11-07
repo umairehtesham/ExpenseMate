@@ -3,4 +3,5 @@
   <Project Path="ExpenseMate.Database/ExpenseMate.Database.csproj" />
   <Project Path="ExpenseMate.Domain/ExpenseMate.Domain.csproj" />
   <Project Path="ExpenseMate.Services/ExpenseMate.Services.csproj" />
+  <Project Path="ExpenseMate.Tests/ExpenseMate.Tests.csproj" />
 </Solution>
