@@ -1,0 +1,38 @@
+## 1. Income Test Cases
+
+- INC-01: Add income with valid details — income is saved successfully.
+- INC-02: Add income with missing required fields — validation error is displayed.
+- INC-03: Enter a negative income amount — invalid amount is rejected.
+- INC-04: Enter zero as the income amount — system handles it according to validation rules.
+- INC-05: View income records — all saved income entries are displayed correctly.
+- INC-06: Edit an income record — updated information is saved.
+- INC-07: Delete an income record — the record is removed successfully.
+- INC-08: Verify total income — the displayed total matches the saved income records.
+
+## 2. Expense Test Cases
+
+- EXP-01: Add an expense with valid details — expense is saved successfully.
+- EXP-02: Add an expense with missing required fields — validation error is displayed.
+- EXP-03: Enter a negative expense amount — invalid amount is rejected.
+- EXP-04: Select an expense category — the selected category is saved correctly.
+- EXP-05: View expense records — all saved expenses are displayed correctly.
+- EXP-06: Edit an expense record — updated information is saved.
+- EXP-07: Delete an expense record — the record is removed successfully.
+- EXP-08: Verify total expenses — the displayed total matches the saved expense records.
+- EXP-09: Add an expense with a future date — the system handles the date according to its validation rules.
+
+## 3. Budget Test Cases
+
+- BUD-01: Set a valid budget percentage — the value is saved successfully.
+- BUD-02: Enter a negative budget percentage — invalid input is rejected.
+- BUD-03: Enter a percentage above 100% — invalid input is rejected, if the allowed range is 0–100%.
+- BUD-04: Set the budget percentage to 0% — the system handles the boundary value correctly.
+- BUD-05: Set the budget percentage to 100% — the system accepts the maximum allowed value.
+- BUD-06: Spending remains below the configured threshold — no warning is displayed.
+- BUD-07: Spending reaches the configured threshold — a warning or alert is displayed.
+- BUD-08: Spending exceeds the configured threshold — the appropriate alert is displayed.
+- BUD-09: Add an expense that crosses the threshold — the warning or alert is triggered.
+- BUD-10: Delete an expense that reduces spending below the threshold — the alert state updates accordingly.
+- BUD-11: Change the budget percentage — the warning threshold updates to reflect the new value.
+- BUD-12: Verify budget percentage calculation — the displayed spending percentage is accurate.
+- BUD-13: Refresh the application after a budget warning — the budget and alert state remain consistent.

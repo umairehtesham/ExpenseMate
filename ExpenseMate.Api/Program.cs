@@ -17,9 +17,12 @@ builder.Services.AddCors(options =>
     });
 });
 
-// 2. Database Context Registration
+// 2. Database Context Registration (Migrated Configuration with Guard)
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Configuration error: Connection string 'DefaultConnection' was not found in appsettings or environment variables.");
+
 builder.Services.AddDbContext<ExpenseMateDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(connectionString));
 
 // 3. Register Repositories
 builder.Services.AddScoped<IIncomeRepo, IncomeRepo>();

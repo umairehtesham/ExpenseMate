@@ -1,6 +1,8 @@
 namespace ExpenseMate.Services;
 
-using System.Security;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using ExpenseMate.Domain;
 
 public class IncomeService : IIncomeService
@@ -9,7 +11,7 @@ public class IncomeService : IIncomeService
 
     public IncomeService(IIncomeRepo incomeRepo)
     {
-        _incomeRepo=incomeRepo;
+        _incomeRepo = incomeRepo ?? throw new ArgumentNullException(nameof(incomeRepo));
     }
 
     public async Task<IEnumerable<Income>> GetAllIncomeAsync()
@@ -21,20 +23,27 @@ public class IncomeService : IIncomeService
     {
         if (id <= 0)
         {
-            throw new ArgumentException("Income ID not valid");
+            throw new ArgumentException("Income ID must be greater than zero.", nameof(id));
         }
+
         return await _incomeRepo.GetByIdAsync(id);
     }
 
     public async Task AddIncomeAsync(Income income)
     {
-        if (income.IncomeAmount < 0)
+        if (income == null)
         {
-            throw new ArgumentException("Income amount not valid");
+            throw new ArgumentNullException(nameof(income), "Income object cannot be null.");
         }
+
+        if (income.IncomeAmount <= 0)
+        {
+            throw new ArgumentException("Income amount must be greater than zero.");
+        }
+
         if (string.IsNullOrWhiteSpace(income.Category))
         {
-            throw new ArgumentException("Category not entered");
+            throw new ArgumentException("Category is required.");
         }
 
         await _incomeRepo.AddAsync(income);
@@ -42,13 +51,24 @@ public class IncomeService : IIncomeService
 
     public async Task UpdateIncomeAsync(Income income)
     {
+        if (income == null)
+        {
+            throw new ArgumentNullException(nameof(income), "Income object cannot be null.");
+        }
+
         if (income.IncomeId <= 0)
         {
-            throw new ArgumentException("Income Id not valid");
+            throw new ArgumentException("Income ID must be greater than zero.", nameof(income.IncomeId));
         }
-        if (income.IncomeAmount<0)
+
+        if (income.IncomeAmount <= 0)
         {
-            throw new ArgumentException("Income amount not valid");
+            throw new ArgumentException("Income amount must be greater than zero.");
+        }
+
+        if (string.IsNullOrWhiteSpace(income.Category))
+        {
+            throw new ArgumentException("Category is required.");
         }
 
         await _incomeRepo.UpdateAsync(income);
@@ -58,8 +78,9 @@ public class IncomeService : IIncomeService
     {
         if (id <= 0)
         {
-            throw new ArgumentException("Income Id not valid");
+            throw new ArgumentException("Income ID must be greater than zero.", nameof(id));
         }
+
         await _incomeRepo.DeleteAsync(id);
     }
 }

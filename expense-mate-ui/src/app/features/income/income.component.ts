@@ -13,28 +13,44 @@ import { Income } from '../../core/models/income.model';
       <!-- Add New Income Card -->
       <div class="card">
         <h2 class="card-title">💵 Add New Income</h2>
+
+        <!-- Error Alert Banner -->
+        <div
+          *ngIf="errorMessage"
+          class="alert-danger"
+          style="margin-bottom: 1rem; padding: 0.75rem 1rem; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #f87171; border-radius: 6px; font-size: 0.9rem;"
+        >
+          ⚠️ {{ errorMessage }}
+        </div>
+
+        <!-- Success Alert Banner -->
+        <div
+          *ngIf="successMessage"
+          class="alert-success"
+          style="margin-bottom: 1rem; padding: 0.75rem 1rem; background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; color: #34d399; border-radius: 6px; font-size: 0.9rem;"
+        >
+          ✅ {{ successMessage }}
+        </div>
+
         <form (ngSubmit)="addIncome()">
           <div class="form-group">
             <label>Category</label>
-            <input 
-              type="text" 
-              [(ngModel)]="newCategory" 
-              name="incomeCategory" 
-              class="form-control" 
-              placeholder="e.g. Primary Job, Freelance" 
-              required 
+            <input
+              type="text"
+              [(ngModel)]="newCategory"
+              name="incomeCategory"
+              class="form-control"
+              placeholder="e.g. Primary Job, Freelance"
             />
           </div>
           <div class="form-group">
             <label>Amount ($)</label>
-            <input 
-              type="number" 
-              [(ngModel)]="newAmount" 
-              name="incomeAmount" 
-              class="form-control" 
-              placeholder="0" 
-              min="1" 
-              required 
+            <input
+              type="number"
+              [(ngModel)]="newAmount"
+              name="incomeAmount"
+              class="form-control"
+              placeholder="0"
             />
           </div>
           <button type="submit" class="btn btn-success" style="width: 100%; margin-top: 0.5rem; background-color: #10b981; border: none; color: white; padding: 0.6rem; border-radius: 6px; font-weight: 600; cursor: pointer;">
@@ -49,12 +65,12 @@ import { Income } from '../../core/models/income.model';
         <div class="form-group">
           <label>Income ID</label>
           <div style="display: flex; gap: 0.5rem;">
-            <input 
-              type="text" 
-              [(ngModel)]="searchId" 
-              name="searchId" 
-              class="form-control" 
-              placeholder="Enter Income ID..." 
+            <input
+              type="text"
+              [(ngModel)]="searchId"
+              name="searchId"
+              class="form-control"
+              placeholder="Enter Income ID..."
               (keyup.enter)="searchById()"
             />
             <button type="button" class="btn btn-primary" (click)="searchById()">Search</button>
@@ -71,7 +87,7 @@ import { Income } from '../../core/models/income.model';
               +\${{ getAmount(searchedIncome) | number:'1.2-2' }}
             </span>
           </div>
-          
+
           <div style="margin-top: 0.75rem;">
             <p style="font-weight: 600; color: var(--text-main); margin: 0;">
               Category: <span style="color: #34d399;">{{ getCategory(searchedIncome) }}</span>
@@ -82,10 +98,10 @@ import { Income } from '../../core/models/income.model';
           </div>
 
           <div style="display: flex; justify-content: flex-end; margin-top: 0.75rem;">
-            <button 
-              type="button" 
-              class="btn btn-danger" 
-              style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" 
+            <button
+              type="button"
+              class="btn btn-danger"
+              style="padding: 0.4rem 0.8rem; font-size: 0.8rem;"
               (click)="deleteIncome(getIncomeId(searchedIncome))"
             >
               🗑️ Delete
@@ -130,10 +146,10 @@ import { Income } from '../../core/models/income.model';
                 {{ (getCreatedAt(item) | date:'MMM d, y, h:mm a') || 'N/A' }}
               </td>
               <td style="text-align: right;">
-                <button 
-                  type="button" 
-                  class="btn btn-danger" 
-                  style="padding: 0.35rem 0.75rem; font-size: 0.8rem;" 
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  style="padding: 0.35rem 0.75rem; font-size: 0.8rem;"
                   (click)="deleteIncome(getIncomeId(item))"
                 >
                   🗑️ Delete
@@ -154,10 +170,11 @@ import { Income } from '../../core/models/income.model';
 })
 export class IncomeComponent {
   incomes: any[] = [];
-  
+
   newCategory: string = '';
   newAmount: number | null = null;
-
+  errorMessage: string | null = null;
+  successMessage: string | null = null;
   searchId: string = '';
   searchedIncome: any = null;
   searchError: string = '';
@@ -181,7 +198,23 @@ export class IncomeComponent {
   }
 
   addIncome(): void {
-    if (!this.newCategory || !this.newAmount) return;
+    // Reset previous messages
+    this.errorMessage = null;
+    this.successMessage = null;
+
+    // 1. Check for missing required fields
+    if (!this.newCategory || this.newAmount === null || this.newAmount === undefined) {
+      this.errorMessage = 'Please provide both a Category and an Amount.';
+      this.cdr.detectChanges();
+      return;
+    }
+
+    // 2. Client-side negative/zero amount validation
+    if (this.newAmount <= 0) {
+      this.errorMessage = 'Amount must be greater than zero.';
+      this.cdr.detectChanges();
+      return;
+    }
 
     const categoryVal = this.newCategory.trim();
     const amountVal = Number(this.newAmount);
@@ -204,12 +237,16 @@ export class IncomeComponent {
 
     this.incomeService.addIncome(payload as any).subscribe({
       next: () => {
+        this.successMessage = 'Income record added successfully!';
         this.newCategory = '';
         this.newAmount = null;
         this.fetchAllIncomes();
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error adding income:', err);
+        // Display backend response message or generic fallback
+        this.errorMessage = err.error?.message || err.error || 'Failed to add income record.';
         this.cdr.detectChanges();
       }
     });

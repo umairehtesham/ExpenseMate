@@ -1,65 +1,66 @@
-using ExpenseMate.Domain;
 using System;
 using System.Threading.Tasks;
+using ExpenseMate.Domain;
 
-namespace ExpenseMate.Domain
+
+namespace ExpenseMate.Services;
+
+public class BudgetAlertService : IBudgetAlertService
 {
-    public class BudgetAlertDto
+    private readonly IBudgetRepo _budgetRepo;
+    private readonly IExpenseRepo _expenseRepo;
+
+    public BudgetAlertService(IBudgetRepo budgetRepo, IExpenseRepo expenseRepo)
     {
-        public bool IsAlertTriggered { get; set; }
-        public decimal TotalSpent { get; set; }
-        public decimal BudgetLimit { get; set; }
-        public decimal SpentPercentage { get; set; }
-        public string Message { get; set; } = string.Empty;
+        _budgetRepo = budgetRepo;
+        _expenseRepo = expenseRepo;
     }
-}
 
-namespace ExpenseMate.Services
-{
-    public class BudgetAlertService : IBudgetAlertService
+    public async Task<budgetAlertdto> CheckBudgetAlertAsync(string month)
     {
-        private readonly IBudgetRepo _budgetRepo;
-        private readonly IExpenseRepo _expenseRepo;
+        // 1. Fetch budget record
+        var budget = await _budgetRepo.GetByMonth(month);
 
-        public BudgetAlertService(IBudgetRepo budgetRepo, IExpenseRepo expenseRepo)
+        // 2. Simple guard for missing budget
+        if (budget == null)
         {
-            _budgetRepo = budgetRepo;
-            _expenseRepo = expenseRepo;
+            return new budgetAlertdto
+            {
+                IsAlertTriggered = false,
+                Message = $"No budget record configured for {month}."
+            };
         }
 
-        public async Task<BudgetAlertDto> CheckBudgetAlertAsync(string month)
+        // 3. Simple guard for non-positive budget limit
+        if (budget.BudgetAmount <= 0)
         {
-                var budget = await _budgetRepo.GetByMonth(month);
+            return new budgetAlertdto
+            {
+                IsAlertTriggered = false,
+                Message = "Budget amount must be greater than zero."
+            };
+        }
 
-                if (budget is null || budget.BudgetAmount <= 0)
-                {
-                    return new BudgetAlertDto
-                    {
-                        IsAlertTriggered = false,
-                        Message = $"No budget record configured for {month}."
-                    };
-                }
+        // 4. Get spent amount and convert negative inputs to positive
+        decimal rawSpent = Convert.ToDecimal(await _expenseRepo.GetTotalSpentByMonthAsync(month));
+        decimal totalSpent = Math.Abs(rawSpent);
 
-                // 1. Convert to decimal and apply Math.Abs to handle negative values (-90.00 -> 90.00)
-                decimal rawSpent = Convert.ToDecimal(await _expenseRepo.GetTotalSpentByMonthAsync(month));
-                decimal totalSpent = Math.Abs(rawSpent);
+        // 5. Compute percentage and threshold
+        decimal spentPercentage = Math.Round((totalSpent / (decimal)budget.BudgetAmount) * 100m, 2);
+        decimal alertThreshold = budget.AlertPercent > 0 ? (decimal)budget.AlertPercent : 80m;
+        bool isTriggered = spentPercentage >= alertThreshold;
 
-                // 2. Perform exact decimal calculations
-                decimal spentPercentage = (totalSpent / (decimal)budget.BudgetAmount) * 100m;
-
-                // 3. Cast float to decimal to allow comparison
-                bool isAlertTriggered = spentPercentage >= (decimal)budget.AlertPercent;
-
-                return new BudgetAlertDto
-                {
-                    IsAlertTriggered = isAlertTriggered,
-                    TotalSpent = totalSpent,
-                    BudgetLimit = (decimal)budget.BudgetAmount,
-                    SpentPercentage = Math.Round(spentPercentage, 2),
-                    Message = isAlertTriggered
-                        ? $"Alert triggered! You have spent {spentPercentage:F1}% of your limit (Threshold: {budget.AlertPercent}%)."
-                        : $"Spending is within safe limits ({spentPercentage:F1}% spent)."
-                };
-            }
+        // 6. Return standard result DTO
+        return new budgetAlertdto
+        {
+            IsAlertTriggered = isTriggered,
+            TotalSpent = totalSpent,
+            BudgetAmount = (decimal)budget.BudgetAmount,
+            SpentPercentage = spentPercentage,
+            AlertPercent = alertThreshold,
+            Message = isTriggered
+                ? $"Alert! You used {spentPercentage}% of your ${budget.BudgetAmount:F2} budget."
+                : $"Within budget. You used {spentPercentage}% of your ${budget.BudgetAmount:F2} budget."
+        };
     }
 }

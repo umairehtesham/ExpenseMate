@@ -13,28 +13,44 @@ import { Expense } from '../../core/models/expense.model';
       <!-- Add New Expense Card -->
       <div class="card">
         <h2 class="card-title">💳 Add New Expense</h2>
+
+        <!-- Error Alert Banner -->
+        <div
+          *ngIf="errorMessage"
+          class="alert-danger"
+          style="margin-bottom: 1rem; padding: 0.75rem 1rem; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #f87171; border-radius: 6px; font-size: 0.9rem;"
+        >
+          ⚠️ {{ errorMessage }}
+        </div>
+
+        <!-- Success Alert Banner -->
+        <div
+          *ngIf="successMessage"
+          class="alert-success"
+          style="margin-bottom: 1rem; padding: 0.75rem 1rem; background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; color: #34d399; border-radius: 6px; font-size: 0.9rem;"
+        >
+          ✅ {{ successMessage }}
+        </div>
+
         <form (ngSubmit)="addExpense()">
           <div class="form-group">
             <label>Category</label>
-            <input 
-              type="text" 
-              [(ngModel)]="newCategory" 
-              name="expenseCategory" 
-              class="form-control" 
-              placeholder="e.g. Food, Utilities, Rent" 
-              required 
+            <input
+              type="text"
+              [(ngModel)]="newCategory"
+              name="expenseCategory"
+              class="form-control"
+              placeholder="e.g. Food, Utilities, Rent"
             />
           </div>
           <div class="form-group">
             <label>Amount ($)</label>
-            <input 
-              type="number" 
-              [(ngModel)]="newAmount" 
-              name="expenseAmount" 
-              class="form-control" 
-              placeholder="0.00" 
-              min="1" 
-              required 
+            <input
+              type="number"
+              [(ngModel)]="newAmount"
+              name="expenseAmount"
+              class="form-control"
+              placeholder="0.00"
             />
           </div>
           <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
@@ -49,12 +65,12 @@ import { Expense } from '../../core/models/expense.model';
         <div class="form-group">
           <label>Expense ID</label>
           <div style="display: flex; gap: 0.5rem;">
-            <input 
-              type="text" 
-              [(ngModel)]="searchId" 
-              name="searchId" 
-              class="form-control" 
-              placeholder="Enter Expense ID..." 
+            <input
+              type="text"
+              [(ngModel)]="searchId"
+              name="searchId"
+              class="form-control"
+              placeholder="Enter Expense ID..."
               (keyup.enter)="searchById()"
             />
             <button type="button" class="btn btn-primary" (click)="searchById()">Search</button>
@@ -71,7 +87,7 @@ import { Expense } from '../../core/models/expense.model';
               -\${{ getAmount(searchedExpense) | number:'1.2-2' }}
             </span>
           </div>
-          
+
           <div style="margin-top: 0.75rem;">
             <p style="font-weight: 600; color: var(--text-main); margin: 0;">
               Category: <span style="color: #f87171;">{{ getCategory(searchedExpense) }}</span>
@@ -82,10 +98,10 @@ import { Expense } from '../../core/models/expense.model';
           </div>
 
           <div style="display: flex; justify-content: flex-end; margin-top: 0.75rem;">
-            <button 
-              type="button" 
-              class="btn btn-danger" 
-              style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" 
+            <button
+              type="button"
+              class="btn btn-danger"
+              style="padding: 0.4rem 0.8rem; font-size: 0.8rem;"
               (click)="deleteExpense(getExpenseId(searchedExpense))"
             >
               🗑️ Delete
@@ -130,10 +146,10 @@ import { Expense } from '../../core/models/expense.model';
                 {{ (getCreatedAt(item) | date:'MMM d, y, h:mm a') || 'N/A' }}
               </td>
               <td style="text-align: right;">
-                <button 
-                  type="button" 
-                  class="btn btn-danger" 
-                  style="padding: 0.35rem 0.75rem; font-size: 0.8rem;" 
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  style="padding: 0.35rem 0.75rem; font-size: 0.8rem;"
                   (click)="deleteExpense(getExpenseId(item))"
                 >
                   🗑️ Delete
@@ -154,9 +170,11 @@ import { Expense } from '../../core/models/expense.model';
 })
 export class ExpenseComponent {
   expenses: any[] = [];
-  
+
   newCategory: string = '';
   newAmount: number | null = null;
+  errorMessage: string | null = null;
+  successMessage: string | null = null;
 
   searchId: string = '';
   searchedExpense: any = null;
@@ -181,13 +199,28 @@ export class ExpenseComponent {
   }
 
   addExpense(): void {
-    if (!this.newCategory || !this.newAmount) return;
+    // Reset previous messages
+    this.errorMessage = null;
+    this.successMessage = null;
+
+    // 1. Check for missing required fields
+    if (!this.newCategory || this.newAmount === null || this.newAmount === undefined) {
+      this.errorMessage = 'Please provide both a Category and an Amount.';
+      this.cdr.detectChanges();
+      return;
+    }
+
+    // 2. Client-side negative/zero amount validation
+    if (this.newAmount <= 0) {
+      this.errorMessage = 'Amount must be greater than zero.';
+      this.cdr.detectChanges();
+      return;
+    }
 
     const categoryVal = this.newCategory.trim();
     const amountVal = Number(this.newAmount);
     const createdDateVal = new Date().toISOString();
 
-    // Directly maps to public fields in C# Expense domain class
     const payload = {
       expenseCategory: categoryVal,
       ExpenseCategory: categoryVal,
@@ -199,12 +232,15 @@ export class ExpenseComponent {
 
     this.expenseService.addExpense(payload as any).subscribe({
       next: () => {
+        this.successMessage = 'Expense record added successfully!';
         this.newCategory = '';
         this.newAmount = null;
         this.fetchAllExpenses();
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error adding expense:', err);
+        this.errorMessage = err.error?.message || err.error || 'Failed to add expense record.';
         this.cdr.detectChanges();
       }
     });
@@ -261,7 +297,7 @@ export class ExpenseComponent {
     });
   }
 
-  // Value Resolvers matching C# Expense properties: ExpenseId, ExpenseCategory, ExpenseAmount, CreatedAt
+  // Value Resolvers matching C# Expense properties
   getExpenseId(item: any): string | number {
     if (!item) return 'N/A';
     return item.expenseId ?? item.ExpenseId ?? item.id ?? item.Id ?? 'N/A';
